@@ -25,6 +25,15 @@ def create_garden(
     return garden
 
 
+@router.get("/my")
+def get_my_gardens(
+    db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+):
+    gardens = db.query(Garden).filter(Garden.owner_id == current_user.id).all()
+
+    return gardens
+
+
 @router.get("/{garden_id}")
 def get_garden(garden_id: int, db: Session = Depends(get_db)):
     garden = db.query(Garden).filter(Garden.id == garden_id).first()
@@ -48,12 +57,3 @@ def update_garden(garden_id: int, data: GardenCreate, db: Session = Depends(get_
     db.refresh(garden)
 
     return garden
-
-
-@router.get("/my")
-def get_my_gardens(
-    db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
-):
-    gardens = db.query(Garden).filter(Garden.owner_id == current_user.id).all()
-
-    return gardens

@@ -1,0 +1,28 @@
+<div class="min-h-screen bg-green-100 p-10">
+  <h1 class="text-3xl font-bold mb-8">🌱 My Gardens</h1>
+  <div class="flex justify-between items-center">
+    <p>Gardens count: {{ gardens().length }}</p>
+    <button
+      type="button"
+      (click)="openNewGardenModal()"
+      class="px-6 py-3 bg-green-600 text-white font-semibold rounded-xl shadow-md hover:bg-green-700 hover:shadow-lg active:scale-95 transition-all duration-200 mb-2"
+    >
+      🌱 Add Garden
+    </button>
+  </div>
+  @for (garden of gardens(); track garden.id) {
+    <div class="bg-white p-6 rounded-xl shadow mb-2">
+      <h2 class="text-xl font-semibold">
+        {{ garden.name }}
+      </h2>
+
+      <p class="text-gray-500">Garden ID: {{ garden.id }}</p>
+    </div>
+  }
+
+  @if (isNewGardenModalOpen) {
+    <app-new-garden-modal (close)="closeNewGardenModal()" />
+  }
+
+  <div class="grid gap-4"></div>
+</div>
