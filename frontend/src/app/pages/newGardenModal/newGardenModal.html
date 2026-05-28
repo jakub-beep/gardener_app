@@ -1,11 +1,93 @@
 <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-  <div class="bg-white rounded-2xl p-8 shadow-xl min-w-[500px]">
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-2xl font-bold">New Garden</h2>
+  <div class="bg-white rounded-2xl p-8 shadow-xl w-full max-w-2xl">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-green-700">🌱 Create New Garden</h2>
 
-      <button (click)="closeModal()" class="text-gray-500 hover:text-black">✕</button>
+      <button (click)="closeModal()" class="text-gray-500 hover:text-black text-xl">✕</button>
     </div>
 
-    <div>Empty modal content</div>
+    <form class="space-y-6">
+      <div>
+        <label class="block text-sm font-medium mb-2"> Garden Name </label>
+
+        <input
+          type="text"
+          placeholder="e.g. Vegetable Garden"
+          class="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-2"> Plants </label>
+
+        <select
+          multiple
+          class="w-full border rounded-xl p-3 h-32 focus:outline-none focus:ring-2 focus:ring-green-500"
+        >
+          <option>Tomato</option>
+          <option>Cucumber</option>
+          <option>Potato</option>
+          <option>Carrot</option>
+          <option>Lettuce</option>
+        </select>
+
+        <p class="text-xs text-gray-500 mt-1">
+          Hold Ctrl (Windows) or Cmd (Mac) to select multiple plants.
+        </p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-2"> Tools </label>
+
+        <select
+          multiple
+          class="w-full border rounded-xl p-3 h-32 focus:outline-none focus:ring-2 focus:ring-green-500"
+        >
+          <option>Shovel</option>
+          <option>Rake</option>
+          <option>Hoe</option>
+          <option>Pruner</option>
+          <option>Wheelbarrow</option>
+        </select>
+
+        <p class="text-xs text-gray-500 mt-1">
+          Hold Ctrl (Windows) or Cmd (Mac) to select multiple tools.
+        </p>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium mb-2"> Garden Area (m²) </label>
+
+        <input
+          type="number"
+          min="1"
+          placeholder="e.g. 100"
+          class="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+        />
+      </div>
+
+      <div class="flex items-center gap-3">
+        <input id="waterPool" type="checkbox" class="w-5 h-5 text-green-600 rounded" />
+
+        <label for="waterPool" class="font-medium"> Garden contains a water pool / pond </label>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-4">
+        <button
+          type="button"
+          (click)="closeModal()"
+          class="px-5 py-2 border rounded-xl hover:bg-gray-100"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="px-6 py-2 bg-green-600 text-white rounded-xl hover:bg-green-700 shadow-md"
+        >
+          🌱 Create Garden
+        </button>
+      </div>
+    </form>
   </div>
 </div>
