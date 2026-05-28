@@ -1,6 +1,10 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from app.db.base import Base
+from app.models.associations import (
+    garden_plants,
+    garden_tools,
+)
 
 
 class Garden(Base):
@@ -12,5 +16,17 @@ class Garden(Base):
     owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User")
-    plants = relationship("Plant", back_populates="garden", cascade="all, delete")
-    tools = relationship("Tool", back_populates="garden", cascade="all, delete")
+    plants = relationship(
+        "Plant",
+        secondary=garden_plants,
+        back_populates="gardens",
+    )
+
+    tools = relationship(
+        "Tool",
+        secondary=garden_tools,
+        back_populates="gardens",
+    )
+
+    garden_area = Column(Integer, nullable=False)
+    has_water_pool = Column(Boolean, default=False)

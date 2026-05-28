@@ -2,10 +2,14 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_db, get_current_user
-from app.models.garden import Garden
-from app.schemas.garden import GardenCreate
 from app.api.deps import get_current_user
+
+from app.schemas.garden import GardenCreate
+
 from app.models.user import User
+from app.models.plant import Plant
+from app.models.tool import Tool
+from app.models.garden import Garden
 
 router = APIRouter(prefix="/gardens", tags=["gardens"])
 
@@ -16,7 +20,18 @@ def create_garden(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    garden = Garden(name=data.name, owner_id=current_user.id)
+    plants = db.query(Plant).filter(Plant.id.in_(data.plants)).all()
+
+    tools = db.query(Tool).filter(Tool.id.in_(data.tools)).all()
+
+    garden = Garden(
+        name=data.name,
+        garden_area=data.garden_area,
+        has_water_pool=data.has_water_pool,
+        owner_id=current_user.id,
+        plants=plants,
+        tools=tools,
+    )
 
     db.add(garden)
     db.commit()

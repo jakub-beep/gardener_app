@@ -1,8 +1,13 @@
+from typing import List
 from pydantic import BaseModel
 
 
 class GardenCreate(BaseModel):
     name: str
+    gardenArea: int
+    tools: List[int] = []
+    plants: List[int] = []
+    has_water_pool: bool
 
 
 class GardenOut(BaseModel):
