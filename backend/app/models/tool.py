@@ -10,10 +10,8 @@ class Tool(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     description = Column(String)
-
-
-gardens = relationship(
-    "Garden",
-    secondary=garden_tools,
-    back_populates="tools",
-)
+    gardens = relationship(
+        "Garden",
+        secondary=garden_tools,
+        back_populates="tools",
+    )
