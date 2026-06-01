@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, selectinload
 
 from app.api.deps import get_db, get_current_user
 from app.api.deps import get_current_user
 
-from app.schemas.garden import GardenCreate
+from app.schemas.garden import GardenCreate, GardenOut
 
 from app.models.user import User
 from app.models.plant import Plant
@@ -21,7 +21,6 @@ def create_garden(
     current_user: User = Depends(get_current_user),
 ):
     plants = db.query(Plant).filter(Plant.id.in_(data.plants)).all()
-
     tools = db.query(Tool).filter(Tool.id.in_(data.tools)).all()
 
     garden = Garden(
@@ -40,11 +39,19 @@ def create_garden(
     return garden
 
 
-@router.get("/my")
+@router.get("/my", response_model=list[GardenOut])
 def get_my_gardens(
     db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
 ):
-    gardens = db.query(Garden).filter(Garden.owner_id == current_user.id).all()
+    gardens = (
+        db.query(Garden)
+        .options(
+            selectinload(Garden.plants),
+            selectinload(Garden.tools),
+        )
+        .filter(Garden.owner_id == current_user.id)
+        .all()
+    )
 
     return gardens
 

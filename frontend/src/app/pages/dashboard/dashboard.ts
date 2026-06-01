@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { signal } from '@angular/core';
 
+import { GardenStore } from '../../store/garden.store';
 import { NewGardenModalComponent } from '../newGardenModal/newGardenModal';
 
 @Component({
@@ -12,10 +13,12 @@ import { NewGardenModalComponent } from '../newGardenModal/newGardenModal';
   imports: [CommonModule, NewGardenModalComponent],
 })
 export class DashboardComponent implements OnInit {
-  gardens = signal<any[]>([]);
   isNewGardenModalOpen = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    public gardenStore: GardenStore,
+  ) {}
 
   openNewGardenModal() {
     this.isNewGardenModalOpen = true;
@@ -36,7 +39,8 @@ export class DashboardComponent implements OnInit {
       })
       .subscribe({
         next: (data) => {
-          this.gardens.set(data);
+          console.log('data', data);
+          this.gardenStore.gardens.set(data);
         },
         error: (err) => {
           console.error(err);
