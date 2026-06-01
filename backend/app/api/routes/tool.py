@@ -29,6 +29,12 @@ def get_tool(tool_id: int, db: Session = Depends(get_db)):
     return tool
 
 
+@router.get("/")
+def get_all_tools(db: Session = Depends(get_db)):
+    tools = db.query(Tool).all()
+    return tools
+
+
 @router.put("/{tool_id}")
 def update_tool(tool_id: int, data: ToolCreate, db: Session = Depends(get_db)):
     tool = db.query(Tool).filter(Tool.id == tool_id).first()

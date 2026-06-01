@@ -29,6 +29,12 @@ def get_plant(plant_id: int, db: Session = Depends(get_db)):
     return plant
 
 
+@router.get("/")
+def get_all_plants(db: Session = Depends(get_db)):
+    plants = db.query(Plant).all()
+    return plants
+
+
 @router.put("/{plant_id}")
 def update_plant(plant_id: int, data: PlantCreate, db: Session = Depends(get_db)):
     plant = db.query(Plant).filter(Plant.id == plant_id).first()

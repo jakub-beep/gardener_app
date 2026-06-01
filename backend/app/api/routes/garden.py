@@ -22,7 +22,9 @@ def create_garden(
 ):
     plants = db.query(Plant).filter(Plant.id.in_(data.plants)).all()
     tools = db.query(Tool).filter(Tool.id.in_(data.tools)).all()
-
+    print("data", data)
+    print("plants", plants)
+    print("tools", tools)
     garden = Garden(
         name=data.name,
         garden_area=data.garden_area,

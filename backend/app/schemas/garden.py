@@ -17,6 +17,8 @@ class GardenOut(BaseModel):
     name: str
     plants: list[PlantOut]
     tools: list[ToolOut]
+    has_water_pool: bool
+    garden_area: int
 
     class Config:
         from_attributes = True

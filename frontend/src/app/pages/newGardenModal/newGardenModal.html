@@ -24,11 +24,11 @@
           multiple
           class="w-full border rounded-xl p-3 h-32 focus:outline-none focus:ring-2 focus:ring-green-500"
         >
-          <option>Tomato</option>
-          <option>Cucumber</option>
-          <option>Potato</option>
-          <option>Carrot</option>
-          <option>Lettuce</option>
+          @for (plant of plantStore.plants(); track plant.id) {
+            <option [value]="plant.id">
+              {{ plant.name }}
+            </option>
+          }
         </select>
 
         <p class="text-xs text-gray-500 mt-1">
@@ -43,11 +43,11 @@
           multiple
           class="w-full border rounded-xl p-3 h-32 focus:outline-none focus:ring-2 focus:ring-green-500"
         >
-          <option>Shovel</option>
-          <option>Rake</option>
-          <option>Hoe</option>
-          <option>Pruner</option>
-          <option>Wheelbarrow</option>
+          @for (tool of toolStore.tools(); track tool.id) {
+            <option [value]="tool.id">
+              {{ tool.name }}
+            </option>
+          }
         </select>
 
         <p class="text-xs text-gray-500 mt-1">

@@ -5,7 +5,7 @@ import { signal } from '@angular/core';
 
 import { GardenStore } from '../../store/garden.store';
 import { NewGardenModalComponent } from '../newGardenModal/newGardenModal';
-
+import { GardenService } from '../../services/garden.service';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -16,8 +16,8 @@ export class DashboardComponent implements OnInit {
   isNewGardenModalOpen = false;
 
   constructor(
-    private http: HttpClient,
     public gardenStore: GardenStore,
+    private gardenService: GardenService,
   ) {}
 
   openNewGardenModal() {
@@ -29,22 +29,14 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
-
-    this.http
-      .get<any[]>('http://localhost:8000/gardens/my', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .subscribe({
-        next: (data) => {
-          console.log('data', data);
-          this.gardenStore.gardens.set(data);
-        },
-        error: (err) => {
-          console.error(err);
-        },
-      });
+    this.gardenService.getGardens().subscribe({
+      next: (data) => {
+        console.log('data', data);
+        this.gardenStore.gardens.set(data);
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
   }
 }

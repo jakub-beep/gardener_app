@@ -12,9 +12,7 @@
   </div>
 
   <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-    <div
-      class="grid grid-cols-[80px_1fr_1fr_1fr] gap-4 px-6 py-4 bg-green-700 text-white font-semibold"
-    >
+    <div class="grid grid-cols-6 gap-4 px-6 py-4 bg-green-700 text-white font-semibold">
       <div>ID</div>
       <div>Name</div>
       <div>Area</div>
@@ -25,7 +23,7 @@
 
     @for (garden of gardenStore.gardens(); track garden.id) {
       <div
-        class="grid grid-cols-[80px_1fr_1fr_1fr] gap-4 px-6 py-5 border-b border-gray-100 hover:bg-green-50 transition"
+        class="grid grid-cols-6 gap-4 px-6 py-5 border-b border-gray-100 hover:bg-green-50 transition"
       >
         <div class="font-medium text-gray-500">#{{ garden.id }}</div>
 
