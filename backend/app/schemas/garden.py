@@ -6,9 +6,9 @@ from pydantic import BaseModel
 
 class GardenCreate(BaseModel):
     name: str
-    gardenArea: int
-    tools: List[int] = []
-    plants: List[int] = []
+    garden_area: int
+    tool_ids: List[int] = []
+    plant_ids: List[int] = []
     has_water_pool: bool
 
 

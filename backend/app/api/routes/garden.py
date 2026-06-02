@@ -20,9 +20,9 @@ def create_garden(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    plants = db.query(Plant).filter(Plant.id.in_(data.plants)).all()
-    tools = db.query(Tool).filter(Tool.id.in_(data.tools)).all()
     print("data", data)
+    plants = db.query(Plant).filter(Plant.id.in_(data.plant_ids)).all()
+    tools = db.query(Tool).filter(Tool.id.in_(data.tool_ids)).all()
     print("plants", plants)
     print("tools", tools)
     garden = Garden(

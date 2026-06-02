@@ -10,7 +10,7 @@ from app.models.associations import (
 class Garden(Base):
     __tablename__ = "gardens"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String, nullable=False)
 
     owner_id = Column(Integer, ForeignKey("users.id"))
