@@ -28,7 +28,6 @@ export class LoginComponent {
       })
       .subscribe({
         next: (res) => {
-          console.log('Logged in!', res);
           this.router.navigate(['/dashboard']);
         },
         error: (err) => {

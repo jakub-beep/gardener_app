@@ -31,7 +31,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.gardenService.getGardens().subscribe({
       next: (data) => {
-        console.log('data', data);
         this.gardenStore.gardens.set(data);
       },
       error: (err) => {

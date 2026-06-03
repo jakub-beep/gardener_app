@@ -13,8 +13,8 @@ export interface IGarden {
 
 export interface INewGarden {
   name: string;
-  tools: ITool[];
-  plants: IPlant[];
+  tool_ids: number[];
+  plant_ids: number[];
   garden_area: number;
   has_water_pool: boolean;
 }

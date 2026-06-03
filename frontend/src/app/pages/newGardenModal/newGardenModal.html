@@ -6,7 +6,7 @@
       <button (click)="closeModal()" class="text-gray-500 hover:text-black text-xl">✕</button>
     </div>
 
-    <form class="space-y-6">
+    <form class="space-y-6" (submit)="handleSubmit(); $event.preventDefault()">
       <div>
         <label class="block text-sm font-medium mb-2"> Garden Name </label>
 
@@ -14,6 +14,8 @@
           type="text"
           placeholder="e.g. Vegetable Garden"
           class="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+          (input)="handleNameChange($event)"
+          [value]="newGarden().name"
         />
       </div>
 
@@ -23,9 +25,10 @@
         <select
           multiple
           class="w-full border rounded-xl p-3 h-32 focus:outline-none focus:ring-2 focus:ring-green-500"
+          (change)="handlePlantSelection($event)"
         >
           @for (plant of plantStore.plants(); track plant.id) {
-            <option [value]="plant.id">
+            <option [value]="plant.id" [selected]="newGarden().plant_ids.includes(plant.id)">
               {{ plant.name }}
             </option>
           }
@@ -42,9 +45,10 @@
         <select
           multiple
           class="w-full border rounded-xl p-3 h-32 focus:outline-none focus:ring-2 focus:ring-green-500"
+          (change)="handleToolSelection($event)"
         >
           @for (tool of toolStore.tools(); track tool.id) {
-            <option [value]="tool.id">
+            <option [value]="tool.id" [selected]="newGarden().tool_ids.includes(tool.id)">
               {{ tool.name }}
             </option>
           }
@@ -63,11 +67,19 @@
           min="1"
           placeholder="e.g. 100"
           class="w-full border rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-green-500"
+          (input)="handleGardenAreaChange($event)"
+          [value]="newGarden().garden_area"
         />
       </div>
 
       <div class="flex items-center gap-3">
-        <input id="waterPool" type="checkbox" class="w-5 h-5 text-green-600 rounded" />
+        <input
+          id="waterPool"
+          type="checkbox"
+          class="w-5 h-5 text-green-600 rounded"
+          (change)="handleWaterPoolChange($event)"
+          [checked]="newGarden().has_water_pool"
+        />
 
         <label for="waterPool" class="font-medium"> Garden contains a water pool / pond </label>
       </div>

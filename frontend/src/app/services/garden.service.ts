@@ -21,8 +21,7 @@ export class GardenService {
 
   createGarden(gardenData: INewGarden) {
     const token = localStorage.getItem('token');
-
-    return this.http.post(`${this.API}/gardens`, gardenData, {
+    return this.http.post(`${this.API}/gardens/`, gardenData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
