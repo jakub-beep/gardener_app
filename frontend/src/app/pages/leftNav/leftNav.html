@@ -1,0 +1,53 @@
+<aside
+  class="flex h-screen flex-col border-r border-gray-200 bg-white transition-all duration-300 border-blue-200"
+  [class.w-20]="collapsed()"
+  [class.w-64]="!collapsed()"
+>
+  <!-- Header -->
+  <div class="flex items-center justify-between border-b border-gray-200 p-4">
+    @if (!collapsed()) {
+      <h1 class="text-xl font-bold text-green-700">
+        {{ navTitle }}
+      </h1>
+    }
+
+    <button (click)="toggleSidebar()" class="rounded-lg p-2 transition hover:bg-gray-100">
+      <i class="fa-solid fa-bars text-gray-600"></i>
+    </button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="flex-1 p-4">
+    <ul class="space-y-2">
+      @for (item of navigationItems; track item.route) {
+        <li>
+          <a
+            [routerLink]="item.route"
+            routerLinkActive="bg-green-100 text-green-700"
+            class="flex items-center gap-3 rounded-lg px-3 py-3 text-gray-700 transition hover:bg-gray-100"
+          >
+            <fa-icon [icon]="item.icon"></fa-icon>
+            @if (!collapsed()) {
+              <span class="font-medium">
+                {{ item.label }}
+              </span>
+            }
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+
+  <!-- Footer -->
+  <div class="border-t border-gray-200 p-4">
+    <button
+      class="flex w-full items-center gap-3 rounded-lg px-3 py-3 text-red-600 transition hover:bg-red-50"
+    >
+      <i class="fa-solid fa-right-from-bracket"></i>
+
+      @if (!collapsed()) {
+        <span>Logout</span>
+      }
+    </button>
+  </div>
+</aside>

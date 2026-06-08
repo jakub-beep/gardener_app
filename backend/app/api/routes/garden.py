@@ -81,3 +81,16 @@ def update_garden(garden_id: int, data: GardenCreate, db: Session = Depends(get_
     db.refresh(garden)
 
     return garden
+
+
+@router.delete("/{garden_id}")
+def delete_garden(garden_id: int, db: Session = Depends(get_db)):
+    garden = db.query(Garden).filter(Garden.id == garden_id).first()
+
+    if not garden:
+        raise HTTPException(status_code=404, detail="Garden not found")
+
+    db.delete(garden)
+    db.commit()
+
+    return {"message": "Garden deleted successfully"}

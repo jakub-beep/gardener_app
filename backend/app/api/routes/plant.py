@@ -49,3 +49,16 @@ def update_plant(plant_id: int, data: PlantCreate, db: Session = Depends(get_db)
     db.refresh(plant)
 
     return plant
+
+
+@router.delete("/{plant_id}")
+def delete_plant(plant_id: int, db: Session = Depends(get_db)):
+    plant = db.query(Plant).filter(Plant.id == plant_id).first()
+
+    if not plant:
+        raise HTTPException(status_code=404, detail="Plant not found")
+
+    db.delete(plant)
+    db.commit()
+
+    return {"detail": "Plant deleted"}

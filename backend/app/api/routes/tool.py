@@ -49,3 +49,16 @@ def update_tool(tool_id: int, data: ToolCreate, db: Session = Depends(get_db)):
     db.refresh(tool)
 
     return tool
+
+
+@router.delete("/{tool_id}")
+def delete_tool(tool_id: int, db: Session = Depends(get_db)):
+    tool = db.query(Tool).filter(Tool.id == tool_id).first()
+
+    if not tool:
+        raise HTTPException(status_code=404, detail="Tool not found")
+
+    db.delete(tool)
+    db.commit()
+
+    return {"detail": "Tool deleted"}

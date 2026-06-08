@@ -6,11 +6,12 @@ import { signal } from '@angular/core';
 import { GardenStore } from '../../store/garden.store';
 import { NewGardenModalComponent } from '../newGardenModal/newGardenModal';
 import { GardenService } from '../../services/garden.service';
+import { LeftNavComponent } from '../leftNav/leftNav';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   templateUrl: './dashboard.html',
-  imports: [CommonModule, NewGardenModalComponent],
+  imports: [CommonModule, NewGardenModalComponent, LeftNavComponent],
 })
 export class DashboardComponent implements OnInit {
   isNewGardenModalOpen = false;
