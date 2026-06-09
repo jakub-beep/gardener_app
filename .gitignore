@@ -5,6 +5,8 @@ frontend/.angular
 
 # Python
 backend/__pycache__/
+backend/alembic/__pycache__/
+backend/alembic/versions/__pycache__/
 backend/app/api/routes/__pycache__/
 backend/*.pyc
 backend/.pytest_cache
