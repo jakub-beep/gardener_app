@@ -11,7 +11,7 @@ datetime.now(timezone.utc)
 
 
 def hash_password(password: str):
-    return pwd_context.hash(password[:72])
+    return pwd_context.hash(password)
 
 
 def verify_password(plain, hashed):

@@ -1,0 +1,14 @@
+[
+  {"name":"Backyard Garden","owner_email":"jakub@gardener.com","garden_area":120,"has_water_pool":true},
+  {"name":"Vegetable Haven","owner_email":"jakub@gardener.com","garden_area":200,"has_water_pool":false},
+  {"name":"Rose Paradise","owner_email":"jakub@gardener.com","garden_area":150,"has_water_pool":true},
+
+  {"name":"Anna's Green Corner","owner_email":"anna@gardener.com","garden_area":100,"has_water_pool":false},
+  {"name":"Fruit Orchard","owner_email":"anna@gardener.com","garden_area":350,"has_water_pool":true},
+  {"name":"Herb Sanctuary","owner_email":"anna@gardener.com","garden_area":90,"has_water_pool":false},
+
+  {"name":"Robert's Garden","owner_email":"robert@gardener.com","garden_area":180,"has_water_pool":true},
+  {"name":"Berry Field","owner_email":"robert@gardener.com","garden_area":240,"has_water_pool":false},
+  {"name":"Flower Meadow","owner_email":"robert@gardener.com","garden_area":130,"has_water_pool":false},
+  {"name":"Community Garden","owner_email":"robert@gardener.com","garden_area":500,"has_water_pool":true}
+]
