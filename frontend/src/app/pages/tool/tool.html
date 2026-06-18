@@ -1,102 +1,66 @@
-<div class="min-h-screen bg-gray-50 p-6">
-  <div class="mx-auto max-w-7xl">
-    <div class="mb-8">
-      <h1 class="text-3xl font-bold text-gray-900">Garden Tools</h1>
-      <p class="mt-2 text-gray-600">Manage your gardening equipment and add new tools.</p>
+<div class="flex w-full gap-6 p-6">
+  <div class="">
+    <app-left-nav navTitle="Menu" />
+  </div>
+
+  <div class="w-full">
+    <div class="mb-6">
+      <input
+        type="text"
+        placeholder="Search tools..."
+        [(ngModel)]="searchTerm"
+        class="w-full rounded-lg border border-green-300 px-4 py-2 focus:border-green-500 focus:outline-none"
+      />
     </div>
 
-    <div class="grid gap-6 lg:grid-cols-3">
+    <!-- Empty state -->
+    @if (filterTools().length === 0) {
+      <div class="rounded-lg border border-green-200 bg-green-50 p-6 text-center text-green-800">
+        No tools found.
+      </div>
+    }
+
+    <div class="grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]">
       <!-- Tool List -->
-      <div class="lg:col-span-2">
-        <div class="rounded-xl bg-white p-6 shadow">
-          <h2 class="mb-4 text-xl font-semibold">My Tools</h2>
+      @for (tool of filterTools(); track tool.id) {
+        <div class="rounded-lg border border-green-200 bg-white p-4 shadow-sm">
+          <div class="flex items-start justify-between">
+            <div>
+              <div class="font-semibold text-green-800">
+                {{ tool.name }}
+              </div>
 
-          @if (tools().length === 0) {
-            <div class="rounded-lg border border-dashed p-8 text-center text-gray-500">
-              No tools added yet.
+              <div class="text-sm text-gray-500">
+                {{ tool.description }}
+              </div>
             </div>
-          } @else {
-            <div class="space-y-4">
-              @for (tool of tools(); track tool.id) {
-                <div
-                  class="rounded-lg border border-gray-200 p-4 transition hover:border-green-500"
-                >
-                  <div class="flex items-center justify-between">
-                    <h3 class="font-semibold text-gray-900">
-                      {{ tool.name }}
-                    </h3>
 
-                    <span
-                      class="rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700"
+            <!-- Add to garden -->
+            <div class="relative">
+              <button
+                class="flex items-center gap-2 rounded-lg bg-green-600 px-3 py-2 text-white hover:bg-green-700"
+                (click)="toggleGardenMenu(tool.id)"
+              >
+                <fa-icon [icon]="faWrench"></fa-icon>
+                <fa-icon [icon]="faPlus"></fa-icon>
+              </button>
+
+              @if (openedToolId === tool.id) {
+                <div class="absolute right-0 z-10 mt-2 w-56 rounded-lg border bg-white shadow-lg">
+                  @for (garden of gardenStore.gardens(); track garden.id) {
+                    <button
+                      class="block w-full px-4 py-2 text-left hover:bg-green-50"
+                      (click)="addToolToGarden(tool.id, garden.id)"
                     >
-                      x{{ tool.quantity }}
-                    </span>
-                  </div>
-
-                  <p class="mt-2 text-sm text-gray-600">
-                    {{ tool.description }}
-                  </p>
+                      {{ garden.name }}
+                    </button>
+                  }
                 </div>
               }
             </div>
-          }
+          </div>
         </div>
-      </div>
-
-      <!-- Add Tool Form -->
-      <div>
-        <div class="rounded-xl bg-white p-6 shadow">
-          <h2 class="mb-4 text-xl font-semibold">Add New Tool</h2>
-
-          <form class="space-y-4" (ngSubmit)="addTool()">
-            <div>
-              <label class="mb-1 block text-sm font-medium"> Tool Name </label>
-
-              <input
-                type="text"
-                [ngModel]="newTool().name"
-                (ngModelChange)="newTool.update((v) => ({ ...v, name: $event }))"
-                name="name"
-                class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-green-500 focus:outline-none"
-                placeholder="e.g. Garden Fork"
-              />
-            </div>
-
-            <div>
-              <label class="mb-1 block text-sm font-medium"> Quantity </label>
-
-              <input
-                type="number"
-                min="1"
-                [ngModel]="newTool().quantity"
-                (ngModelChange)="newTool.update((v) => ({ ...v, quantity: +$event }))"
-                name="quantity"
-                class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-green-500 focus:outline-none"
-              />
-            </div>
-
-            <div>
-              <label class="mb-1 block text-sm font-medium"> Description </label>
-
-              <textarea
-                rows="4"
-                [ngModel]="newTool().description"
-                (ngModelChange)="newTool.update((v) => ({ ...v, description: $event }))"
-                name="description"
-                class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-green-500 focus:outline-none"
-                placeholder="Describe the tool..."
-              ></textarea>
-            </div>
-
-            <button
-              type="submit"
-              class="w-full rounded-lg bg-green-600 px-4 py-2 font-medium text-white transition hover:bg-green-700"
-            >
-              Add Tool
-            </button>
-          </form>
-        </div>
-      </div>
+      }
     </div>
   </div>
 </div>

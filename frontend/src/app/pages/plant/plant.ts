@@ -12,8 +12,9 @@ import { LeftNavComponent } from '../leftNav/leftNav';
 interface Plant {
   id: number;
   name: string;
-  quantity: number;
+  species: string;
   description: string;
+  watering_frequency_days: number;
 }
 
 @Component({
@@ -45,7 +46,7 @@ export class PlantComponent {
     });
   }
 
-  filterPlants() {
+  filterPlants(): Plant[] {
     const term = this.searchTerm.trim().toLowerCase();
 
     if (!term) {
