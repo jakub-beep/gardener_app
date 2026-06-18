@@ -1,6 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPlus, faSeedling } from '@fortawesome/free-solid-svg-icons';
 
 import { PlantService } from '../../services/plant.service';
 import { PlantStore } from '../../store/plant.store';
@@ -17,11 +19,14 @@ interface Plant {
 @Component({
   selector: 'app-plants',
   standalone: true,
-  imports: [CommonModule, FormsModule, LeftNavComponent],
+  imports: [CommonModule, FormsModule, LeftNavComponent, FontAwesomeModule],
   templateUrl: './plant.html',
 })
 export class PlantComponent {
   searchTerm = '';
+  openedPlantId: number | null = null;
+  faPlus = faPlus;
+  faSeedling = faSeedling;
 
   constructor(
     public plantStore: PlantStore,
@@ -61,7 +66,11 @@ export class PlantComponent {
       .some((garden) => garden.name.toLowerCase() === name.trim().toLowerCase());
   }
 
-  addPlantToGarden(plantName: string, gardenName: string) {
-    console.log(`Adding plant ${plantName} to garden ${gardenName}`);
+  addPlantToGarden(plantId: number, gardenId: number) {
+    console.log(`Adding plant ${plantId} to garden ${gardenId}`);
+  }
+
+  toggleGardenMenu(plantId: number): void {
+    this.openedPlantId = this.openedPlantId === plantId ? null : plantId;
   }
 }
