@@ -24,7 +24,7 @@ export class LeftNavComponent {
     {
       label: 'My Gardens',
       icon: faHouse,
-      route: '/gardens',
+      route: '/dashboard',
     },
     {
       label: 'Plants',
